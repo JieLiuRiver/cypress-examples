@@ -37,5 +37,4 @@ jobs:
           # Creating a token https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TERM: xterm
-          NO_SANDBOX: true
-          DEBUG: 'cypress:*' 
+          NO_SANDBOX: true 

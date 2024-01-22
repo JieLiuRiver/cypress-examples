@@ -9,6 +9,6 @@
     "test:ci:record": "npm run cypress:run -- --record"
   },
   "devDependencies": {
-    "cypress": "^13.1.0"
+    "cypress": "^12.17.4"
   }
 }
