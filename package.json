@@ -1,0 +1,14 @@
+{
+  "name": "cypress-examples",
+  "version": "1.0.0",
+  "scripts": {
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "cypress:run": "./node_modules/.bin/cypress run",
+    "test:ci": "npm run cypress:run",
+    "test:ci:firefox": "npm run cypress:run -- --browser firefox",
+    "test:ci:record": "npm run cypress:run -- --record"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.3"
+  }
+}
