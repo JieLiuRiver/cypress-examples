@@ -2,7 +2,7 @@
 describe('Login Element Color Test', () => {
   it('should have red font color for element with id "login"', () => {
     
-    cy.visit('your_application_url');
+    cy.visit('/');
 
     cy.get('#login').should('be.visible');
   
