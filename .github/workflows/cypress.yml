@@ -17,8 +17,7 @@ jobs:
           
       - name: Start Server
         run: |
-          npm run start &
-        background: true  # This runs the command in the background
+          npm run start 
         
       - name: Cypress run
         uses: cypress-io/github-action@v6
