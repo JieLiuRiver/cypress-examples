@@ -6,8 +6,6 @@ describe('Login Element Color Test', () => {
 
     cy.get('#loginForm').should('be.visible');
   
-    cy.window().its('localStorage.user').invoke('forEach', (key, value) => {
-      cy.log(`${key}: ${value}`);
-  });
+    cy.getAllLocalStorage({log: true})
   });
 });
