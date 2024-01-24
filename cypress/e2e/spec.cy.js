@@ -2,7 +2,7 @@
 // https://on.cypress.io/intelligent-code-completion
 /// <reference types="Cypress" />
 
-lakey.
+
   // @see https://www.cypress.io/blog/2020/12/03/retry-rerun-repeat/
   describe('loading style', { retries: 0 }, () => {
     const timeout = 1500 // ms
