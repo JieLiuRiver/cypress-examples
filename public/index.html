@@ -35,13 +35,15 @@
 
 <script>
     $(document).ready(function () {
-        // if (localStorage.getItem('user')) {
-        //   $('#loginForm').show();
-        //   $('#welcomePanel').hide();
-        // } else {
-        //    $('#loginForm').hide()
-        //    $('#welcomePanel').show();;
-        // }
+        if (!!localStorage.getItem('user')) {
+          const user = JSON.parse(localStorage.getItem('user'))
+          $('#loginForm').hide();
+          $('#welcomePanel').show();
+          $('userFirstName').text(user.firstName)
+        } else {
+           $('#loginForm').hide()
+           $('#welcomePanel').show();;
+        }
       
         $('#loginButton').on('click', function () {
             const username = $('#username').val();
