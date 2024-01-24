@@ -85,8 +85,8 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password }),
             };
-
-            return fetch('/users/authenticate', requestOptions)
+            
+            return fetch('http://localhost:3000/users/authenticate', requestOptions)
                 .then(handleResponse)
                 .then(user => {
                     if (user.token) {
