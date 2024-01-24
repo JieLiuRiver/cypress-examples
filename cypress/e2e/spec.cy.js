@@ -3,8 +3,8 @@ const { doRequestLogin } = require('../support/e2e')
 // login just once using API
 let user
 
-before(function () {
-  user = doRequestLogin()
+before(function async() {
+  user = await doRequestLogin()
 })
 
 // but set the user before visiting the page
