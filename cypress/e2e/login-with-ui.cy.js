@@ -10,27 +10,27 @@ describe('logs in', () => {
   
       // confirm we have logged in successfully
       // cy.location('pathname').should('equal', '/')
-      
-      // cy.contains('Hi Test!')
-      // .should('be.visible')
-      // .then(() => {
-      // /* global window */
-      //   const userString = window.localStorage.getItem('user')
+
+      cy.get('#loginForm')
+      .should('be.not.visible')
+      .then(() => {
+      /* global window */
+        const userString = window.localStorage.getItem('user')
+        cy.log(userString)
+        expect(userString).to.be.a('string')
+        const user = JSON.parse(userString)
   
-      //   expect(userString).to.be.a('string')
-      //   const user = JSON.parse(userString)
+        expect(user).to.be.an('object')
+        expect(user).to.have.keys([
+          'id',
+          'username',
+          'firstName',
+          'lastName',
+          'token',
+        ])
   
-      //   expect(user).to.be.an('object')
-      //   expect(user).to.have.keys([
-      //     'id',
-      //     'username',
-      //     'firstName',
-      //     'lastName',
-      //     'token',
-      //   ])
-  
-      //   expect(user.token).to.be.a('string')
-      // })
+        expect(user.token).to.be.a('string')
+      })
   
       // now we can log out
       //cy.contains('a', 'Logout').click()
