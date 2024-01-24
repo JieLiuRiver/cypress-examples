@@ -3,11 +3,11 @@ const { doRequestLogin } = require('../support/e2e')
 // login just once using API
 let user
 
-before(function async() {
-  const login = doRequestLogin()
-  user = await login
+before(function () {
+  return doRequestLogin().then(res => {
+    user = res;
+  });
 })
-
 // but set the user before visiting the page
 // so the app thinks it is already authenticated
 beforeEach(function setUser () {
@@ -15,7 +15,6 @@ beforeEach(function setUser () {
     onBeforeLoad (win) {
       // and before the page finishes loading
       // set the user object in local storage
-      cy.log(user)
       win.localStorage.setItem('user', JSON.stringify(user))
     },
   })
