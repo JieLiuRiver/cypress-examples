@@ -1,12 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-  <body>
-    <main>
-      <h1 id="login">Login</h1>
-    </main>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-     $(document).ready(function () {
-          $("#login").css("color", "red");
-      });
-    </script>
-  </body>
+        #loginForm, #welcomePanel {
+            text-align: center;
+            display: none;
+        }
+
+        #logoutButton {
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="loginForm">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <button type="button" id="loginButton">Login</button>
+    </form>
+</div>
+
+<div id="welcomePanel">
+    <h1>Hi <span id="userFirstName"></span>!</h1>
+    <p>You're logged in with Vue + Vuex & JWT!!</p>
+    <button id="logoutButton">Logout</button>
+</div>
+
+<script>
+    $(document).ready(function () {
+        if (localStorage.getItem('user')) {
+          $('#loginForm').show();
+          $('#welcomePanel').hide();
+        } else {
+           $('#loginForm').hide()
+           $('#welcomePanel').show();;
+        }
+      
+        $('#loginButton').on('click', function () {
+            const username = $('#username').val();
+            const password = $('#password').val();
+
+            // Call login function from loginService
+            login(username, password)
+                .then(user => {
+                    // Hide login form
+                    $('#loginForm').hide();
+
+                    // Show welcome panel
+                    $('#welcomePanel').show();
+
+                    // Update welcome message with user's first name
+                    $('#userFirstName').text(user.firstName);
+
+                    // You can redirect to another page or update the UI here
+                })
+                .catch(error => {
+                    // Handle login error
+                    console.error('Login failed. Error:', error);
+                });
+        });
+
+        $('#logoutButton').on('click', function () {
+            // Call logout function
+            logout();
+
+            // Hide welcome panel
+            $('#welcomePanel').hide();
+
+            // Show login form
+            $('#loginForm').show();
+        });
+
+        function login(username, password) {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password }),
+            };
+
+            return fetch('/users/authenticate', requestOptions)
+                .then(handleResponse)
+                .then(user => {
+                    if (user.token) {
+                        localStorage.setItem('user', JSON.stringify(user));
+                    }
+                    return user;
+                });
+        }
+
+        function handleResponse(response) {
+            return response.text().then((text) => {
+                const data = text && JSON.parse(text);
+
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        logout();
+                        location.reload(true);
+                    }
+
+                    const error = (data && data.message) || response.statusText;
+
+                    return Promise.reject(error);
+                }
+
+                return data;
+            });
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+        }
+    });
+</script>
+
+</body>
+</html>
