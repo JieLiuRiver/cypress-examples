@@ -7,7 +7,8 @@
     "test:ci": "npm run cypress:run",
     "test:ci:firefox": "npm run cypress:run -- --browser firefox",
     "cypress:ci:record": "npm run cypress:run -- --record",
-    "start": "./node_modules/.bin/http-server -c-1 -p 4500 public"
+    "start:app": "./node_modules/.bin/http-server -c-1 -p 4500 public",
+    "start:server": "node server"
   },
   "devDependencies": {
     "cypress": "^13.2.0",
