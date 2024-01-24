@@ -6,10 +6,12 @@
     "cypress:run": "./node_modules/.bin/cypress run",
     "test:ci": "npm run cypress:run",
     "test:ci:firefox": "npm run cypress:run -- --browser firefox",
-    "test:ci:record": "npm run cypress:run -- --record"
+    "cypress:ci:record": "npm run cypress:run -- --record",
+    "start": "./node_modules/.bin/http-server -c-1 -p 4500 public"
   },
   "devDependencies": {
     "cypress": "^13.2.0",
-    "cypress-wait-until":"3.0.1"
+    "cypress-wait-until":"3.0.1",
+    "http-server": "0.11.1"
   }
 }

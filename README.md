@@ -17,3 +17,8 @@ cy.window().then(win => {
     .find(item => item.name.endsWith(name))
 })
 ```
+
+
+-c: This flag is typically used to enable caching. The value that follows determines the cache time in seconds.
+
+-1: In this case, the value -1 is used, indicating that caching should be disabled. A cache time of -1 effectively means that the server should not cache any content, always fetching the latest version from the server.
