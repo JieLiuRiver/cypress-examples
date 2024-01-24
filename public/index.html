@@ -37,12 +37,7 @@
     $(document).ready(function () {
         if (!!localStorage.getItem('user')) {
           const user = JSON.parse(localStorage.getItem('user'))
-          $('#loginForm').hide();
-          $('#welcomePanel').show();
           $('userFirstName').text(user.firstName)
-        } else {
-           $('#loginForm').hide()
-           $('#welcomePanel').show();;
         }
       
         $('#loginButton').on('click', function () {
