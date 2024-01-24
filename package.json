@@ -12,6 +12,7 @@
   "devDependencies": {
     "cypress": "^13.2.0",
     "cypress-wait-until":"3.0.1",
-    "http-server": "0.11.1"
+    "http-server": "0.11.1",
+    "jquery": "3.5.0"
   }
 }
