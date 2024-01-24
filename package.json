@@ -10,10 +10,16 @@
     "start:app": "./node_modules/.bin/http-server -c-1 -p 4500 public",
     "start:server": "node server"
   },
+  "dependencies": {
+    "express": "4.16.2",
+    "body-parser": "1.18.2",
+    "cors": "2.8.5"
+  },
   "devDependencies": {
     "cypress": "^13.2.0",
     "cypress-wait-until":"3.0.1",
     "http-server": "0.11.1",
-    "jquery": "3.5.0"
+    "jquery": "3.5.0",
+    "rootpath": "0.1.2"
   }
 }
