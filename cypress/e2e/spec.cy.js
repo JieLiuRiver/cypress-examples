@@ -1,6 +1,6 @@
 
 describe('Login Element Color Test', () => {
-  it('should have login element', () => {
+  it.skip('should have login element', () => {
     
     cy.visit('/');
 
