@@ -4,7 +4,8 @@ const { doRequestLogin } = require('../support/e2e')
 let user
 
 before(function async() {
-  user = await doRequestLogin()
+  const login = doRequestLogin()
+  user = await login
 })
 
 // but set the user before visiting the page
