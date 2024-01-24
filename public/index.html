@@ -19,6 +19,7 @@
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required><br>
+    <span id="passwordError" style="color: red;"></span>
 
     <button type="button" id="loginButton">Login</button>
     
@@ -49,6 +50,8 @@
             // Call login function from loginService
             login(username, password)
                 .then(user => {
+                    $("#passwordError").hide()
+
                     // Hide login form
                     $('#loginForm').hide();
 
@@ -63,6 +66,7 @@
                 .catch(error => {
                     // Handle login error
                     console.error('Login failed. Error:', error);
+                    $("#passwordError").text(error).show();
                 });
         });
 
