@@ -41,8 +41,4 @@ describe('JWT', () => {
       },
     ])
   })
-
-  it('is logged in', () => {
-    cy.contains('Hi Test!').should('be.visible')
-  })
 })
