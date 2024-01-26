@@ -8,7 +8,7 @@ module.exports = defineConfig({
     // need to use system environment variable: CYPRESS_password=xxx
     // cypress will auto handle variable with prefix CYPRESS_, and get password variable
     // and set to env obj
-    // password: 'test'
+    password: 'test'
   },
   e2e: {
     baseUrl: 'http://localhost:4500',
