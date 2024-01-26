@@ -3,6 +3,8 @@ describe('logs in', () => {
     it('using UI', () => {
       cy.visit('/')
 
+      const pwd = Cypress.env("CYPRESS_PASSWORD") || Cypress.env('password');
+
       // enter valid username and password
       cy.get('[name=username]').type(Cypress.env('username'))
       // set log to false, is safer, but not enough
