@@ -5,7 +5,7 @@ describe('logs in', () => {
 
       // enter valid username and password
       cy.get('[name=username]').type(Cypress.env('username'))
-      // set log to false, is more safe
+      // set log to false, is safer, but not enough
       cy.get('[name=password]').type(Cypress.env('password'), {log: false})
       cy.contains('button', 'Login').click()
   
