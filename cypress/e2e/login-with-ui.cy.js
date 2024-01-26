@@ -16,13 +16,13 @@ describe('logs in', () => {
       // enter valid username and password
       cy.get('[name=username]').type(username)
       // set log to false, is safer, but not enough
-      cy.get('[name=password]').type(password, {log: false}).should('have.value', password)
+      // cy.get('[name=password]').type(password, {log: false}).should('have.value', password)
       
-      // cy.get('[name=password]').type(password, {log: false}).should(el$ => {
-      //   if (el$.val() !== password) {
-      //     throw new Error('Different value of typed password')
-      //   }
-      // })
+      cy.get('[name=password]').type(password, {log: false}).should(el$ => {
+        if (el$.val() !== password) {
+          throw new Error('Different value of typed password')
+        }
+      })
 
       cy.contains('button', 'Login').click()
   
