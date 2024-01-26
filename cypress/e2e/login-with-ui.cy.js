@@ -7,12 +7,23 @@ describe('logs in', () => {
       const password = Cypress.env('password');
 
       expect(username, 'username was set').to.be.a('string').and.not.be.empty;
-      expect(password, 'password was set').to.be.a('string').and.not.be.empty;
+
+      // but the password value should not be shown
+      if (typeof password !== 'string' || !password) {
+        throw new Error('Missing password value, set using CYPRESS_password=...')
+      }
 
       // enter valid username and password
       cy.get('[name=username]').type(username)
       // set log to false, is safer, but not enough
-      cy.get('[name=password]').type(password, {log: false})
+      cy.get('[name=password]').type(password, {log: false}).should('have.value', password)
+      
+      // cy.get('[name=password]').type(password, {log: false}).should(el$ => {
+      //   if (el$.val() !== password) {
+      //     throw new Error('Different value of typed password')
+      //   }
+      // })
+
       cy.contains('button', 'Login').click()
   
       // confirm we have logged in successfully
