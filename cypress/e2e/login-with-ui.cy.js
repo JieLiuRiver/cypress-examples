@@ -3,10 +3,16 @@ describe('logs in', () => {
     it('using UI', () => {
       cy.visit('/')
 
+      const username = Cypress.env('username');
+      const password = Cypress.env('password');
+
+      expect(username, 'username was set').to.be.a('string').and.not.be.empty;
+      expect(password, 'password was set').to.be.a('string').and.not.be.empty;
+
       // enter valid username and password
-      cy.get('[name=username]').type(Cypress.env('username'))
+      cy.get('[name=username]').type(username)
       // set log to false, is safer, but not enough
-      cy.get('[name=password]').type(Cypress.env('password'), {log: false})
+      cy.get('[name=password]').type(password, {log: false})
       cy.contains('button', 'Login').click()
   
       // confirm we have logged in successfully
