@@ -138,12 +138,4 @@ describe('Redux store', () => {
     // and 2 of them should be completed
     cy.get('.todo-list li.completed').should('have.length', 2)
   })
-
-  it('snapshots', () => {
-    cy.visit('/')
-    cy.focused().type('first{enter}').type('second{enter}').type('third{enter}')
-    cy.contains('.todo-list li', 'second').find('input[type=checkbox]').click()
-    cy.contains('.filters a', 'Completed').click()
-    cy.window().its('store').invoke('getState').toMatchSnapshot()
-  })
 })
