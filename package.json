@@ -4,12 +4,12 @@
   "description": "Testing Redux store using Cypress",
   "private": true,
   "scripts": {
-    "cypress:open": "../../node_modules/.bin/cypress open",
-    "cypress:run": "../../node_modules/.bin/cypress run",
-    "cypress:run:record": "../../node_modules/.bin/cypress run --record",
-    "start": "../../node_modules/.bin/react-scripts start",
-    "test:ci": "../../node_modules/.bin/start-test 3000 cypress:run",
-    "test:ci:record": "../../node_modules/.bin/start-test 3000 cypress:run:record"
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "cypress:run": "./node_modules/.bin/cypress run",
+    "cypress:run:record": "./node_modules/.bin/cypress run --record",
+    "start": "./node_modules/.bin/react-scripts start",
+    "test:ci": "./node_modules/.bin/start-test 3000 cypress:run",
+    "test:ci:record": "./node_modules/.bin/start-test 3000 cypress:run:record"
   },
   "dependencies": {
     "cypress": "13.6.3",
@@ -19,7 +19,8 @@
     "prop-types": "15.6.2",
     "reselect": "4.0.0",
     "redux": "4.0.1",
-    "classnames": "2.2.6"
+    "classnames": "2.2.6",
+    "todomvc-app-css": "2.3.0"
   },
   "devDependencies": {
     "react-scripts": "5.0.1"
