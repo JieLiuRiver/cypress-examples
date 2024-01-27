@@ -2,8 +2,8 @@ const { defineConfig } = require('cypress')
 
 module.exports = defineConfig({
   projectId: "pwh6zn",
-  fixturesFolder: false,
+  defaultCommandTimeout: 10000,
   e2e: {
-    supportFile: false,
+    baseUrl: 'http://localhost:4500',
   },
 })

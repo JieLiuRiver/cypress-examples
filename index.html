@@ -1,14 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <script type="module" src="./elements.js"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./redux.js"></script>
+    <title>Redux Lit</title>
   </head>
   <body>
-    <element-one></element-one>
-    <div class="container-2">
-      <element-two>
-        <p>Testing 123</p>
-      </element-two>
-    </div>
+
+    <script type="module">
+     import { LitElement, html } from 'https://unpkg.com/lit-element@3.3.3/lit-element.js?module';
+
+     const { createStore, combineReducers } = window.Redux;
+
+      const todoReducer = (state = [], action) => {
+        switch (action.type) {
+          case "ADD_TODO":
+            return [...state, { id: state.length + 1, text: action.payload, completed: false }];
+          case "DELETE_TODO":
+            return state.filter(todo => todo.id !== action.payload);
+          case "TOGGLE_TODO":
+            return state.map(todo =>
+              (todo.id === action.payload) ? { ...todo, completed: !todo.completed } : todo
+            );
+          default:
+            return state;
+        }
+      };
+
+      const defaultState = {
+        todos: [
+          { id: 1, text: 'Example Todo 1', completed: false },
+          { id: 2, text: 'Example Todo 2', completed: true },
+        ],
+      };
+
+      const rootReducer = combineReducers({
+          todos: todoReducer
+      });
+
+      window.store = createStore(rootReducer, (window.Cypress && window.initialState) || defaultState);
+
+      const reduxify = (CustomElement) => {
+        return class extends CustomElement {
+          constructor() {
+            super()
+            window.store.subscribe(() => this.updateState());
+            this.stateChanged?.(store.getState());
+          }
+          updateState() {
+            const state = store.getState();
+            this.stateChanged?.(state)
+            this.requestUpdate();
+          }
+        }
+      }
+      
+      class JamesToDoApp extends LitElement {
+        static properties = {
+          inputValue: { type: String },
+          todos: { type: Array },
+        };
+
+        stateChanged(state) {
+          this.todos = state.todos;
+        }
+
+        constructor() {
+          super();
+          this.inputValue = '';
+          this.todos = [];
+        }
+
+        firstUpdated() {
+          const inputBox = this.shadowRoot.getElementById('inputBox');
+          if (inputBox) {
+            inputBox.focus();
+          }
+        }
+
+        render () {
+          const todoItems = [];
+          for (const item of this.todos) {
+            todoItems.push(html`<li class="todo-item">
+              <span style="${item.completed ? 'text-decoration: line-through;' : ''}">${item.text}</span>
+              <ul>
+                  <li><button @click=${() => this.handleToggle(item)}>toggle</button></li>
+                  <li><button @click=${() => this.handleRemove(item.id)}>remove</button></li>
+              </ul>  
+            </li>`);
+          }
+
+          return html`
+            <h1>Hello James To Do App!</h1>
+            <input 
+              id="inputBox"
+              type="text" 
+              class="new-todo"
+              placeholder="What needs to be done?" 
+              .value=${this.inputValue} 
+              @keydown=${(event) => this.onEnterKeyPress(event.key)}
+              @change=${(event) => this.onInputChange(event.target.value)} 
+            />
+            <button data-cy="add" @click=${() => this.handleAdd()}>Add</button>
+            <hr/>
+            <ul class="todo-list">
+              ${todoItems}
+            </ul>
+          `
+        }
+
+        handleToggle(item) {
+          window.store.dispatch({
+            type: "TOGGLE_TODO",
+            payload: item.id
+          })
+        }
+
+        onEnterKeyPress(key) {
+          if (key === 'Enter') {
+            this.handleAdd()
+          }
+        }
+
+        onInputChange(value) {
+          this.inputValue = value;
+        }
+
+        handleAdd() {
+          if (!this.inputValue) return;
+          window.store.dispatch({
+            type: "ADD_TODO",
+            payload: this.inputValue
+          })
+          this.inputValue = '';
+        }
+
+        handleRemove(id) {
+          window.store.dispatch({
+            type: "DELETE_TODO",
+            payload: id
+          })
+        }
+      }
+      window.customElements.define('james-todo-app', reduxify(JamesToDoApp))
+    </script>
+
+    <james-todo-app></james-todo-app>
+    
   </body>
 </html>
