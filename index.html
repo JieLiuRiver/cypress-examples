@@ -11,6 +11,7 @@
 
     <script type="module">
      import { LitElement, html } from 'https://unpkg.com/lit-element@3.3.3/lit-element.js?module';
+     import { getTodo, deleteTodo, toggleTodo } from './actions'
 
      const { createStore, combineReducers } = window.Redux;
 
@@ -83,7 +84,7 @@
         render () {
           const todoItems = [];
           for (const item of this.todos) {
-            todoItems.push(html`<li class="todo-item">
+            todoItems.push(html`<li class="todo-item ${item.completed ? 'completed' : ''}">
               <span style="${item.completed ? 'text-decoration: line-through;' : ''}">${item.text}</span>
               <ul>
                   <li><button @click=${() => this.handleToggle(item)}>toggle</button></li>
@@ -112,10 +113,7 @@
         }
 
         handleToggle(item) {
-          window.store.dispatch({
-            type: "TOGGLE_TODO",
-            payload: item.id
-          })
+          window.store.dispatch(toggleTodo(item.id))
         }
 
         onEnterKeyPress(key) {
@@ -130,18 +128,12 @@
 
         handleAdd() {
           if (!this.inputValue) return;
-          window.store.dispatch({
-            type: "ADD_TODO",
-            payload: this.inputValue
-          })
+          window.store.dispatch(getTodo(this.inputValue))
           this.inputValue = '';
         }
 
         handleRemove(id) {
-          window.store.dispatch({
-            type: "DELETE_TODO",
-            payload: id
-          })
+          window.store.dispatch(deleteTodo(id))
         }
       }
       window.customElements.define('james-todo-app', reduxify(JamesToDoApp))
