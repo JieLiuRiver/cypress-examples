@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-import { addTodo, deleteTodo } from '../../actions'
 
 describe('Redux store', () => {
   it('loads', () => {
@@ -64,71 +63,71 @@ describe('Redux store', () => {
     cy.window().pipe(getTodos).should('have.length', 3)
   })
 
-  // it('can drive app by dispatching actions', () => {
-  //   cy.visit('/')
-  //   // dispatch Redux action
-  //   cy
-  //   .window()
-  //   .its('store')
-  //   .invoke('dispatch', { type: 'ADD_TODO', text: 'Test dispatch' })
+  it('can drive app by dispatching actions', () => {
+    cy.visit('/')
+    // dispatch Redux action
+    cy
+    .window()
+    .its('store')
+    .invoke('dispatch', { type: 'ADD_TODO', text: 'Test dispatch' })
 
-  //   // check if the app has updated its UI
-  //   cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 3).contains('Test dispatch')
-  // })
+    // check if the app has updated its UI
+    cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 3).contains('Test dispatch')
+  })
 
-  // const dispatch = (action) => cy.window().its('store').invoke('dispatch', action)
+  const dispatch = (action) => cy.window().its('store').invoke('dispatch', action)
 
-  // it('can use actions from application code', () => {
-  //   cy.visit('/')
-  //   dispatch(addTodo('Watch movie'))
-  //   dispatch(deleteTodo(1))
-  //   cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 2).contains('Watch movie')
-  // })
+  it('can use actions from application code', () => {
+    cy.visit('/')
+    dispatch(cy.window().its('store').invoke('addTodo'))
+    dispatch(cy.window().its('store').invoke('deleteTodo', '0'))
+    cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 2).contains('Watch movie')
+  })
 
-  // it('can set initial todos', () => {
-  //   cy.visit('/', {
-  //     onBeforeLoad: (win) => {
-  //       win.initialState = [
-  //         {
-  //           id: 0,
-  //           text: 'first',
-  //           completed: true,
-  //         },
-  //         {
-  //           id: 1,
-  //           text: 'second',
-  //           completed: false,
-  //         },
-  //         {
-  //           id: 2,
-  //           text: 'third',
-  //           completed: true,
-  //         },
-  //       ]
-  //     },
-  //   })
+  it('can set initial todos', () => {
+    cy.visit('/', {
+      onBeforeLoad: (win) => {
+        win.initialState = [
+          {
+            id: 0,
+            text: 'first',
+            completed: true,
+          },
+          {
+            id: 1,
+            text: 'second',
+            completed: false,
+          },
+          {
+            id: 2,
+            text: 'third',
+            completed: true,
+          },
+        ]
+      },
+    })
 
-  //   // there should be 3 items in the UI
-  //   cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 3)
-  //   // and 2 of them should be completed
-  //   cy.get('.todo-list .completed').should('have.length', 2)
-  // })
+    // there should be 3 items in the UI
+    cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 3)
+    // and 2 of them should be completed
+    cy.get('.todo-list .completed').should('have.length', 2)
+  })
 
-  // const initialVisit = (url, fixture) => {
-  //   cy.fixture(fixture).then((todos) => {
-  //     cy.visit(url, {
-  //       onBeforeLoad: (win) => {
-  //         win.initialState = todos
-  //       },
-  //     })
-  //   })
-  // }
+  const initialVisit = (url, fixture) => {
+    cy.fixture(fixture).then((todos) => {
+      cy.visit(url, {
+        onBeforeLoad: (win) => {
+          win.initialState = todos
+        },
+      })
+    })
+  }
 
-  // it('can set initial todos from a fixture', () => {
-  //   initialVisit('/', 'todos.json')
-  //   // there should be 3 items in the UI
-  //   cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 2)
-  //   // and 2 of them should be completed
-  //   cy.get('james-todo-app').shadow().find('.todo-list .completed').should('have.length', 1)
-  // })
+  it('can set initial todos from a fixture', () => {
+    initialVisit('/', 'todos.json')
+    // there should be 3 items in the UI
+    cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 2)
+    // and 2 of them should be completed
+    cy.get('james-todo-app').shadow().find('.todo-list .completed').should('have.length', 1)
+  })
 })
