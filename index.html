@@ -142,7 +142,7 @@
 
         handleAdd() {
           if (!this.inputValue) return;
-          window.store.dispatch(getTodo(this.inputValue))
+          window.store.dispatch(addTodo(this.inputValue))
           this.inputValue = '';
         }
 
