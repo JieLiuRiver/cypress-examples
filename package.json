@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "react-scripts": "5.0.1",
+    "cypress-pipe": "2.0.0",
     "start-server-and-test": "1.11.7"
   },
   "browserslist": [
