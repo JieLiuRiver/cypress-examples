@@ -12,23 +12,22 @@
     <script type="module">
      import { LitElement, html } from 'https://unpkg.com/lit-element@3.3.3/lit-element.js?module';
     
-
      const { createStore, combineReducers } = window.Redux;
 
-     window.actions = {
-        addTodo: (payload) => ({
-            type: "ADD_TODO",
-            payload
-        }),
-        deleteTodo: (payload) => ({
-            type: "DELETE_TODO",
-            payload
-        }),
-        toggleTodo: (payload) => ({
-            type: "TOGGLE_TODO",
-            payload
-        })
-     }
+     const addTodo = (payload) => ({
+          type: "ADD_TODO",
+          payload
+      })
+
+      const deleteTodo = (payload) => ({
+          type: "DELETE_TODO",
+          payload
+      })
+
+      const toggleTodo = (payload) => ({
+          type: "TOGGLE_TODO",
+          payload
+      })
 
       const todoReducer = (state = [], action) => {
         switch (action.type) {
@@ -128,7 +127,7 @@
         }
 
         handleToggle(item) {
-          window.store.dispatch(window.toggleTodo(item.id))
+          window.store.dispatch(toggleTodo(item.id))
         }
 
         onEnterKeyPress(key) {
@@ -143,12 +142,12 @@
 
         handleAdd() {
           if (!this.inputValue) return;
-          window.store.dispatch(window.getTodo(this.inputValue))
+          window.store.dispatch(getTodo(this.inputValue))
           this.inputValue = '';
         }
 
         handleRemove(id) {
-          window.store.dispatch(window.deleteTodo(id))
+          window.store.dispatch(deleteTodo(id))
         }
       }
       window.customElements.define('james-todo-app', reduxify(JamesToDoApp))

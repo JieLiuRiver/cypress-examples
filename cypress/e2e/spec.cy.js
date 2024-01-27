@@ -74,16 +74,7 @@ describe('Redux store', () => {
     // check if the app has updated its UI
     cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 3).contains('Test dispatch')
   })
-
-  const dispatch = (action) => cy.window().its('store').invoke('dispatch', action)
-
-  it('can use actions from application code', () => {
-    cy.visit('/')
-    dispatch(cy.window().its('store').invoke('addTodo'))
-    dispatch(cy.window().its('store').invoke('deleteTodo', '0'))
-    cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 2).contains('Watch movie')
-  })
-
+  
   it('can set initial todos', () => {
     cy.visit('/', {
       onBeforeLoad: (win) => {
