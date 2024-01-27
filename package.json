@@ -11,7 +11,18 @@
     "test:ci": "../../node_modules/.bin/start-test 3000 cypress:run",
     "test:ci:record": "../../node_modules/.bin/start-test 3000 cypress:run:record"
   },
+  "dependencies": {
+    "cypress": "13.6.3",
+    "react-redux": "5.1.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "prop-types": "15.6.2",
+    "reselect": "4.0.0",
+    "redux": "4.0.1",
+    "classnames": "2.2.6"
+  },
   "devDependencies": {
+    "react-scripts": "5.0.1",
     "cypress-plugin-snapshots": "1.0.6"
   },
   "browserslist": [
