@@ -35,8 +35,6 @@ describe('Redux store', () => {
     cy
     .get('james-todo-app')
     .shadow().find('[data-cy="add"]').click();
-    // cy.contains('li', 'Test with Cypress').find('input[type=checkbox]').click()
-    // cy.contains('.filters a', 'Completed').click()
     cy.window().its('store').invoke('getState').should('deep.equal', {
       todos: [
         { id: 1, text: 'Example Todo 1', completed: false },
@@ -46,28 +44,22 @@ describe('Redux store', () => {
     })
   })
 
-  // it('can wait for delayed updates', () => {
-  //   cy.visit('/')
-  //   cy.focused().type('first{enter}').type('second{enter}')
-  //   // check the dom
-  //   cy.get('.todo-list li').should('have.length', 3)
-  //   // now redux store should have been updated
-  //   cy.window().its('store').invoke('getState').its('todos').should('have.length', 3)
-  // })
+  it('can wait for delayed updates using pipe', () => {
+    cy.visit('/')
+    cy
+    .get('james-todo-app')
+    .shadow()
+    .find('input').type('Example Todo 3{enter}');
+    const getTodos = (win) => {
+      return win.store.getState().todos
+    }
 
-  // it('can wait for delayed updates using pipe', () => {
-  //   cy.visit('/')
-  //   cy.focused().type('first{enter}').type('second{enter}')
-  //   const getTodos = (win) => {
-  //     return win.store.getState().todos
-  //   }
-
-  //   // using cypress-pipe the "getTodos" will be retried until
-  //   //   should('have.length', 3) passes
-  //   //    or
-  //   //   default command timeout ends
-  //   cy.window().pipe(getTodos).should('have.length', 3)
-  // })
+    // using cypress-pipe the "getTodos" will be retried until
+    //   should('have.length', 3) passes
+    //    or
+    //   default command timeout ends
+    cy.window().pipe(getTodos).should('have.length', 3)
+  })
 
   // it('can drive app by dispatching actions', () => {
   //   cy.visit('/')
