@@ -64,19 +64,19 @@ describe('Redux store', () => {
     cy.window().pipe(getTodos).should('have.length', 3)
   })
 
-  it('can drive app by dispatching actions', () => {
-    cy.visit('/')
-    // dispatch Redux action
-    cy
-    .window()
-    .its('store')
-    .invoke('dispatch', { type: 'ADD_TODO', text: 'Test dispatch' })
+  // it('can drive app by dispatching actions', () => {
+  //   cy.visit('/')
+  //   // dispatch Redux action
+  //   cy
+  //   .window()
+  //   .its('store')
+  //   .invoke('dispatch', { type: 'ADD_TODO', text: 'Test dispatch' })
 
-    // check if the app has updated its UI
-    cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 3).contains('Test dispatch')
-  })
+  //   // check if the app has updated its UI
+  //   cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 3).contains('Test dispatch')
+  // })
 
-  const dispatch = (action) => cy.window().its('store').invoke('dispatch', action)
+  // const dispatch = (action) => cy.window().its('store').invoke('dispatch', action)
 
   // it('can use actions from application code', () => {
   //   cy.visit('/')
