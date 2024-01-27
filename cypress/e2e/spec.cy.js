@@ -2,7 +2,7 @@
 
 describe('Redux store', () => {
   it('loads', () => {
-    cy.visit('/index.html')
+    cy.visit('/')
     cy
     .get('james-todo-app')
     .shadow()
