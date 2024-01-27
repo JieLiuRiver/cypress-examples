@@ -114,29 +114,21 @@ describe('Redux store', () => {
     cy.get('.todo-list .completed').should('have.length', 2)
   })
 
-  // const initialVisit = (url, fixture) => {
-  //   cy.fixture(fixture).then((todos) => {
-  //     cy.visit(url, {
-  //       onBeforeLoad: (win) => {
-  //         win.initialState = todos
-  //       },
-  //     })
-  //   })
-  // }
+  const initialVisit = (url, fixture) => {
+    cy.fixture(fixture).then((todos) => {
+      cy.visit(url, {
+        onBeforeLoad: (win) => {
+          win.initialState = todos
+        },
+      })
+    })
+  }
 
-  // it('can set initial todos from a fixture', () => {
-  //   initialVisit('/', '3-todos.json')
-  //   // there should be 3 items in the UI
-  //   cy.get('.todo-list li').should('have.length', 3)
-  //   // and 2 of them should be completed
-  //   cy.get('.todo-list li.completed').should('have.length', 2)
-  // })
-
-  // it('snapshots', () => {
-  //   cy.visit('/')
-  //   cy.focused().type('first{enter}').type('second{enter}').type('third{enter}')
-  //   cy.contains('.todo-list li', 'second').find('input[type=checkbox]').click()
-  //   cy.contains('.filters a', 'Completed').click()
-  //   cy.window().its('store').invoke('getState').toMatchSnapshot()
-  // })
+  it('can set initial todos from a fixture', () => {
+    initialVisit('/', 'todos.json')
+    // there should be 3 items in the UI
+    cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 2)
+    // and 2 of them should be completed
+    cy.get('james-todo-app').shadow().find('.todo-list .completed').should('have.length', 1)
+  })
 })
