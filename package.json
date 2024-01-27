@@ -23,7 +23,8 @@
     "todomvc-app-css": "2.3.0"
   },
   "devDependencies": {
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "start-server-and-test": "1.11.7"
   },
   "browserslist": [
     ">0.2%",
