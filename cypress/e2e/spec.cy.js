@@ -50,6 +50,9 @@ describe('Redux store', () => {
     .get('james-todo-app')
     .shadow()
     .find('input').type('Example Todo 3{enter}');
+    cy
+    .get('james-todo-app')
+    .shadow().find('[data-cy="add"]').click();
     const getTodos = (win) => {
       return win.store.getState().todos
     }
