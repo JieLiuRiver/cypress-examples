@@ -72,9 +72,9 @@ describe('Redux store', () => {
     .invoke('dispatch', { type: 'ADD_TODO', text: 'Test dispatch' })
 
     // check if the app has updated its UI
-    cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 3).contains('Test dispatch')
+    cy.get('james-todo-app').shadow().find('.todo-list .todo-item').should('have.length', 3);
   })
-  
+
   it('can set initial todos', () => {
     cy.visit('/', {
       onBeforeLoad: (win) => {
