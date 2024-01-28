@@ -1,23 +1,22 @@
 
 describe("Navigation", () => {
     it("test 1", () => {
-        cy.visit("https://demo.opencart.com/")
-        cy.title().should('eq', 'Your Store')
+        cy.visit("https://translate.google.com/")
 
-        cy.get('li:nth-child(7) a:nth-child(1)').click();
-        cy.get('div[id="content"] h2').should('have.text', 'Cameras')
+        cy.get("[jsname='SHEbFd']").click(); 
+        cy.url().contain("images")
 
         cy.go('back') // go back to home
-        cy.title().should('eq', 'Your Store')
+        cy.url().should("eq", "https://translate.google.com/")
 
         cy.go('forward') // cameras
-        cy.get('div[id="content"] h2').should('have.text', 'Cameras')
+        cy.url().contain("images")
 
         cy.go(-1);
-        cy.title().should('eq', 'Your Store')
+        cy.url().should("eq", "https://translate.google.com/")
 
         cy.go(1)
-        cy.get('div[id="content"] h2').should('have.text', 'Cameras')
+        cy.url().contain("images")
 
         cy.reload();
     })
