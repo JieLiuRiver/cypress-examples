@@ -12,6 +12,6 @@ export default class Login {
     }
 
     verifyLogin() {
-        cy.get('.oxd-alert-content.oxd-alert-content--error p').should('include', 'Invalid credentials')
+        cy.get(".oxd-topbar-header-breadcrumb > .oxd-text").should('have.text', 'Dashboard')
     }
 }
