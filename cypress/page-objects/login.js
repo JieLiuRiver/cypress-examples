@@ -12,6 +12,6 @@ export default class Login {
     }
 
     verifyLogin() {
-        cy.get(".oxd-topbar-header-breadcrumb > .oxd-text").should('have.text', 'Dashboard')
+        cy.get(".oxd-topbar-header-breadcrumb > h6").should('have.text', 'Dashboard')
     }
 }
