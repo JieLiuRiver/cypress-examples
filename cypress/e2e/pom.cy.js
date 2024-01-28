@@ -4,7 +4,7 @@ describe("POM", () => {
     it('Login', () => {
         cy.visit("https://opensource-demo.orangehrmlive.com/")
 
-        cy.fixtures('account').then((data) => {
+        cy.fixture('account').then((data) => {
             const instance = new Login()
             instance.setUserName(data.username)
             instance.setPassword(data.password)
