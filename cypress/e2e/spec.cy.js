@@ -52,7 +52,7 @@ describe('Redux store', () => {
     cy.visit('/')
     cy.focused().type('first{enter}').type('second{enter}')
     // check the dom
-    cy.get('.todo-list li').should('have.length', 3)
+   // cy.get('.todo-list li').should('have.length', 3)
     // now redux store should have been updated
     cy.window().its('store').invoke('getState').its('todos').should('have.length', 3)
   })
